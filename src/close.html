@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Login successfull</title>
+</head>
+
+<body>
+  <p>The login was successfull! You can tab back to your CLI. </p>
+  <p id="container">This tab will attempt to close itself in <span id="seconds">5</span> seconds.</p>
+
+  <script>
+    let secondsEl = document.getElementById("seconds")
+    let seconds = Number(secondsEl.innerHTML);
+
+    setInterval(() => {
+      seconds--;
+
+      if (seconds >= 0) {
+        secondsEl.innerHTML = seconds;
+      }
+
+      if (seconds == 0) {
+        window.close()
+      } else if (seconds == -1) {
+        document.getElementById("container").innerHTML = "Looks like this tab couldn't close itself, but you can safely do so yourself."
+      }
+    }, 1000)
+  </script>
+</body>
+
+</html>
