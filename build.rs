@@ -4,15 +4,9 @@ use oauth2::{AuthUrl, RedirectUrl, TokenUrl};
 use url::Url;
 
 pub fn main() {
-    if cfg!(target_os = "linux") {
-        println!("cargo::rustc-cfg=feature=\"linux\"");
-    } else if cfg!(target_os = "macos") {
-        println!("cargo::rustc-cfg=feature=\"apple\"");
-    } else if cfg!(target_os = "windows") {
-        println!("cargo::rustc-cfg=feature=\"windows\"");
-    } else {
-        panic!("Unsupported OS!");
-    }
+    if !cfg!(feature = "linux") && !cfg!(feature = "apple") && !cfg!(feature = "windows") {
+        panic!("\nYou need to enable either the linux-, apple-, or windows feature!\n");
+    };
 
     let client_id = var("CLIENT_ID").expect("Missing build env CLIENT_ID");
     let auth_url = var("AUTH_URL").expect("Missing build env AUTH_URL");
